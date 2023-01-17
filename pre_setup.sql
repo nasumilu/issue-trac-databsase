@@ -13,9 +13,16 @@
    See the License for the specific language governing permissions and
    limitations under the License.
  */
+---------------------- EXTENSION -------------------------
 
-drop table if exists county_staging;
-drop table if exists us_state_staging;
-drop table if exists incorporated_place_staging;
+create extension if not exists postgis;
 
-vacuum full verbose;
+----------------------------------------------------------
+
+--------------------- DROP TABLES ------------------------
+
+drop table if exists feature_class cascade;
+drop table if exists tabulation_area cascade;
+drop table if exists us_state cascade;
+drop table if exists county cascade;
+drop table if exists incorporated_place cascade;
