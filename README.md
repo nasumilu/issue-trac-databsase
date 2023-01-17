@@ -26,3 +26,9 @@ tables, and finally create the applications database.
 ## Entity Relational Diagram (ERD)
 
 ![Issue Trac ERD](erd.png)
+
+## Resources & Links
+
+- [TIGER/Line&reg; Shapefiles Documentation](https://www.census.gov/programs-surveys/geography/technical-documentation/complete-technical-documentation/tiger-geo-line.2022.html)
+- [PostgreSQL Database Documentation](https://www.postgresql.org/docs/)
+- [PostGIS Documentation](https://postgis.net/documentation/)
