@@ -1,7 +1,8 @@
-# Issue Trac Database
+# IssueTrac Database
 
-This is part of the Issue Trac application created as my senior project. Contained within this repository are the 
-necessary sql and shell script to setup the applications database. 
+This is one of many components for [IssueTrac Project](https://github.com/nasumilu/issue-trac) created as my senior 
+project. Contained within this repository are the necessary sql and shell script to setup the application and 
+feature database(s). 
 
 ## Setup
 
@@ -32,3 +33,5 @@ tables, and finally create the applications database.
 - [TIGER/Line&reg; Shapefiles Documentation](https://www.census.gov/programs-surveys/geography/technical-documentation/complete-technical-documentation/tiger-geo-line.2022.html)
 - [PostgreSQL Database Documentation](https://www.postgresql.org/docs/)
 - [PostGIS Documentation](https://postgis.net/documentation/)
+
+[Back to IssueTrac Project](https://github.com/nasumilu/issue-trac)
