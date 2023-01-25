@@ -16,19 +16,14 @@
 #   limitations under the License.
 #
 
-set -a
-source <(cat .env.local | sed -e '/^#/d;/^\s*$/d' -e "s/'/'\\\''/g" -e "s/=\(.*\)/='\1'/g")
-set +a
+psql -f setup.sql
 
-# pre-setup
-psql -f pre_setup.sql
-
-# download data and push to staging tables
+# download features and import us states and county into database
 download_urls=(
   "https://www2.census.gov/geo/tiger/TIGER${TIGER_YEAR}/STATE/tl_${TIGER_YEAR}_us_state.zip"
   "https://www2.census.gov/geo/tiger/TIGER${TIGER_YEAR}/COUNTY/tl_${TIGER_YEAR}_us_county.zip"
 )
-table_names=(us_state_staging county_staging)
+table_names=(us_state county)
 
 dns="host=${PGHOSTADDR} user=${PGUSER} dbname=${PGDATABASE} password=${PGPASSWORD} port=${PGPORT}"
 
@@ -43,6 +38,7 @@ for i in "${!download_urls[@]}"; do
   rm -rf "${unzip_dir}"
 done
 
+# The file ids
 file_id=(01 02 04 05 06 08 09 10 11 12 13 15 16 17 18 19 20 21 22 23 24  25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 44 45 46 47 48 49 50 51 53 54 55 56 60 66 69 72 78)
 
 for i in "${!file_id[@]}"; do
@@ -53,13 +49,9 @@ for i in "${!file_id[@]}"; do
   unzip_dir=$(mktemp --directory --dry-run)
   unzip "${download_file}" -d "${unzip_dir}"
   shp_file=$(ls "${unzip_dir}"/*.shp)
-  ogr2ogr -progress -append -f PostgreSQL PG:"${dns}" "${shp_file}" -nlt PROMOTE_TO_MULTI -lco GEOMETRY_NAME=shape -lco FID=id -lco SPATIAL_INDEX=GIST -nln incorporated_place_staging
+  ogr2ogr -progress -append -f PostgreSQL PG:"${dns}" "${shp_file}" -nlt PROMOTE_TO_MULTI -lco GEOMETRY_NAME=shape -lco FID=id -lco SPATIAL_INDEX=GIST -nln place
   rm -f "${download_file}"
   rm -rf "${unzip_dir}"
 done
 
-# setup application database
-psql -f setup.sql
-
-# post setup
-psql -f post_setup.sql
+psql -f post-setup.sql
