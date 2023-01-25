@@ -2,9 +2,19 @@
 
 This is one of many components for [IssueTrac Project](https://github.com/nasumilu/issue-trac) created as my senior 
 project. Contained within this repository are the necessary sql and shell script to setup the application and 
-feature database(s). 
+feature server database(s). 
 
-## Setup
+## Requirements
+
+- [curl](https://man7.org/linux/man-pages/man1/curl.1.html) is used to download the TIGER/Line&reg; Shapefile(s) from 
+  the US Census Bureau
+- [ogr2ogr](https://gdal.org/programs/ogr2ogr.html) used to convert/import the TIGER/Line&reg; Shapefile(s) into the 
+  PostgreSQL database.
+- [PostgreSQL Database >= v14](https://www.postgresql.org/) the primary persist storage used by the IssueTrac application
+  and the feature server. 
+- [PostGIS >= v3.2](https://postgis.net/) a spatial database extender which adds geographic objects and spatial query
+
+## Usage
 
 ```shell
 $ git clone git@github.com:nasumilu/issue-trac-databsase.git
@@ -20,13 +30,12 @@ are provided, run:
 $ ./setup.sh
 ```
 
-This may take awhile, the script needs to download each of the TIGER/Line&reg; Shapefiles, store the data into staging
-tables, and finally create the applications database.
-
+This may take awhile, the script needs to download each of the TIGER/Line&reg; Shapefiles and then import the shapefile
+into the database.
 
 ## Entity Relational Diagram (ERD)
 
-![Issue Trac ERD](erd.png)
+![Issue Trac ERD](dist/feature_server/erd.png)
 
 ## Resources & Links
 
