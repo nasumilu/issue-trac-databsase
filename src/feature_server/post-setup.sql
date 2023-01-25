@@ -1,6 +1,6 @@
-\include us_state.sql
-\include county.sql
-\include place.sql
+\i us_state.sql
+\i county.sql
+\i place.sql
 
 ------------------- MAINTENANCE -------------------------
 

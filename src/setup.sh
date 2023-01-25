@@ -20,5 +20,5 @@ set -a
 source <(cat ../.env.local | sed -e '/^#/d;/^\s*$/d' -e "s/'/'\\\''/g" -e "s/=\(.*\)/='\1'/g")
 set +a
 
-cd feature_server
+cd feature_server || exit
 bash setup.sh
