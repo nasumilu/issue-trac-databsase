@@ -27,6 +27,7 @@ Set the correct arguments in the `.env.local` file. For more details on setting 
 are provided, run:
 
 ```shell
+$ cd src
 $ ./setup.sh
 ```
 
