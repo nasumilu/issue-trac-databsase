@@ -15,6 +15,9 @@
 #  See the License for the specific language governing permissions and
 #   limitations under the License.
 #
+set -a
+source <(cat .env.local | sed -e '/^#/d;/^\s*$/d' -e "s/'/'\\\''/g" -e "s/=\(.*\)/='\1'/g")
+set +a
 
 psql -f setup.sql
 

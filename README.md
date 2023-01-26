@@ -17,8 +17,8 @@ feature server database(s).
 ## Usage
 
 ```shell
-$ git clone git@github.com:nasumilu/issue-trac-databsase.git
-$ cd issue-trac-database
+$ git clone git@github.com:nasumilu/issue_trac-databsase.git
+$ cd issue_trac-database
 $ cp .env .env.local
 ```
 
@@ -36,7 +36,14 @@ into the database.
 
 ## Entity Relational Diagram (ERD)
 
-![Issue Trac ERD](dist/feature_server/erd.png)
+### Feature ServerDatabase
+
+What I really want to program!
+![Feature Server ERD](dist/feature_server/erd.png)
+
+### Application Database
+
+![IssueTrac ERD](dist/issue_trac/erd.png)
 
 ## Resources & Links
 

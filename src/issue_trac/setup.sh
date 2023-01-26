@@ -16,7 +16,8 @@
 #   limitations under the License.
 #
 
-cd feature_server || exit
-bash setup.sh
-cd ../issue_trac || exit
-bash setup.sh
+set -a
+source <(cat .env.local | sed -e '/^#/d;/^\s*$/d' -e "s/'/'\\\''/g" -e "s/=\(.*\)/='\1'/g")
+set +a
+
+psql -f setup.sql

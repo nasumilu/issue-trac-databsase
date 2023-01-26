@@ -15,21 +15,43 @@
  */
 
 -- change the data type for intptlon to a numeric type
-ALTER TABLE IF EXISTS us_state
-    ALTER COLUMN intptlon TYPE numeric USING intptlon::numeric(10, 7);
+alter table if exists us_state
+    alter column intptlon type numeric using intptlon::numeric(10, 7);
 
 -- change the data type for intptlat to a numeric type
-ALTER TABLE IF EXISTS us_state
-    ALTER COLUMN intptlat TYPE numeric USING intptlat::numeric(10, 7);
+alter table if exists us_state
+    alter column intptlat type numeric using intptlat::numeric(10, 7);
+
+alter table if exists us_state
+    alter column shape set not null;
+
+alter table if exists us_state
+    alter column statefp set not null;
+
+alter table if exists us_state
+    alter column geoid set not null;
+
+alter table if exists us_state
+    alter column region set not null;
+
+alter table if exists us_state
+    alter column name set not null;
+
+alter table if exists us_state
+    alter column mtfcc set not null;
+
+alter table if exists us_state
+    alter column funcstat set not null;
+
 
 -- add an index to the statefp column
-CREATE INDEX IF NOT EXISTS us_state_statefp_idx
-    ON us_state (statefp);
+create index if not exists us_state_statefp_idx
+    on us_state (statefp);
 
 -- add a unique index to the geoid column
-CREATE UNIQUE INDEX IF NOT EXISTS us_state_geoid_idx
-    ON us_state (geoid);
+create unique index if not exists us_state_geoid_idx
+    on us_state (geoid);
 
 -- spatial index to the spape geometry column
-CREATE INDEX IF NOT EXISTS us_state_shape_geom_idx
-    ON us_state USING gist (shape);
+create index if not exists us_state_shape_geom_idx
+    on us_state using gist (shape);

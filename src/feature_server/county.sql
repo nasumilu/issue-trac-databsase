@@ -15,33 +15,54 @@
  */
  
 -- change the data type for intptlon to a numeric type
-ALTER TABLE IF EXISTS county
-    ALTER COLUMN intptlon TYPE numeric USING intptlon::numeric(10, 7);
+alter table if exists county
+    alter column intptlon type numeric using intptlon::numeric(10, 7);
 
 -- change the data type for intptlat to a numeric type
-ALTER TABLE IF EXISTS county
-    ALTER COLUMN intptlat TYPE numeric USING intptlat::numeric(10, 7);
+alter table if exists county
+    alter column intptlat type numeric using intptlat::numeric(10, 7);
+
+alter table if exists county
+    alter column shape set not null;
+
+alter table if exists county
+    alter column statefp set not null;
+
+alter table if exists county
+    alter column geoid set not null;
+
+alter table if exists county
+    alter column countyfp set not null;
+
+alter table if exists county
+    alter column name set not null;
+
+alter table if exists county
+    alter column mtfcc set not null;
+
+alter table if exists county
+    alter column funcstat set not null;
 
 -- drop the csafp column
-ALTER TABLE IF EXISTS county
-    DROP COLUMN IF EXISTS csafp;
+alter table if exists county
+    drop column if exists csafp;
 
 -- drop the cbsafp column
-ALTER TABLE IF EXISTS county
-    DROP COLUMN IF EXISTS cbsafp;
+alter table if exists county
+    drop column if exists cbsafp;
 
 -- add an index to the statefp column
-CREATE INDEX IF NOT EXISTS county_statefp_idx
+create index if not exists county_statefp_idx
     ON county (statefp);
 
 -- add an index to the countyfp column
-CREATE INDEX IF NOT EXISTS county_countyfp_idx
+create index if not exists county_countyfp_idx
     ON county (countyfp);
 
 -- add a unique index to the geoid column
-CREATE UNIQUE INDEX IF NOT EXISTS county_geoid_idx
+create unique index if not exists county_geoid_idx
     ON county (geoid);
 
 -- spatial index to the spape geometry column
-CREATE INDEX IF NOT EXISTS county_shape_geom_idx
-    ON county USING gist (shape);
+create index if not exists county_shape_geom_idx
+    ON county using gist (shape);

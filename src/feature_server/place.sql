@@ -14,31 +14,53 @@
    limitations under the License.
  */
  -- change the data type for intptlon to a numeric type
-ALTER TABLE IF EXISTS place
-    ALTER COLUMN intptlon TYPE numeric USING intptlon::numeric(10, 7);
+alter table if exists place
+    alter column intptlon type numeric using intptlon::numeric(10, 7);
 
 -- change the data type for intptlat to a numeric type
-ALTER TABLE IF EXISTS place
-    ALTER COLUMN intptlat TYPE numeric USING intptlat::numeric(10, 7);
+alter table if exists place
+    alter column intptlat type numeric using intptlat::numeric(10, 7);
 
-ALTER TABLE IF EXISTS place
-    DROP COLUMN IF EXISTS pcicbsa;
+alter table if exists place
+    drop column if exists pcicbsa;
 
-ALTER TABLE IF EXISTS place
-    DROP COLUMN IF EXISTS pcinecta;
+alter table if exists place
+    drop column if exists pcinecta;
+
+alter table if exists place
+    alter column shape set not null;
+
+alter table if exists place
+    alter column statefp set not null;
+
+alter table if exists place
+    alter column geoid set not null;
+
+alter table if exists place
+    alter column placefp set not null;
+
+alter table if exists place
+    alter column name set not null;
+
+alter table if exists place
+    alter column mtfcc set not null;
+
+alter table if exists place
+    alter column funcstat set not null;
+
 
 -- add an index to the statefp column
-CREATE INDEX IF NOT EXISTS place_statefp_idx
+create index if not exists place_statefp_idx
     ON place (statefp);
 
 -- add an index to the countyfp column
-CREATE INDEX IF NOT EXISTS place_countyfp_idx
+create index if not exists place_countyfp_idx
     ON place (placefp);
 
 -- add a unique index to the geoid column
-CREATE UNIQUE INDEX IF NOT EXISTS place_geoid_idx
+create unique index if not exists place_geoid_idx
     ON place (geoid);
 
 -- spatial index to the spape geometry column
-CREATE INDEX IF NOT EXISTS place_shape_geom_idx
+create index if not exists place_shape_geom_idx
     ON place USING gist (shape);

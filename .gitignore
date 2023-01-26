@@ -1,2 +1,4 @@
 /.idea/
 /.env.local
+src/feature_server/.env.local
+src/issue_trac/.env.local
