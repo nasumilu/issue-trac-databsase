@@ -63,6 +63,7 @@ create table if not exists datasource
     username     character varying(64)  not null,
     password character varying(255) not null, -- must encrypt password (no plain-text)
     host     character varying(128) not null,
+    port     integer                not null,
     driver   driver                 not null
     -- need to add ssl configuration
 );
