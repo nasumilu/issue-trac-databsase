@@ -34,7 +34,7 @@ drop type if exists driver cascade;
 
 ----------------- TYPES & DOMAINS ------------------------
 
-create type feature_attribute_type as enum ('number', 'string', 'boolean', 'date');
+create type feature_attribute_type as enum ('number', 'string', 'boolean', 'date', 'geometry');
 create type driver as enum ('pdo_mysql', 'mysqli', 'pdo_pgsql', 'pdo_sqlsrv', 'sqlsrv', 'pdo_oci', 'oci8', 'ibm_db2', 'pdo_sqlite', 'sqlite3');
 create domain email AS text
     check ( value ~
