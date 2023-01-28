@@ -49,7 +49,6 @@ into the database.
 
 ### Feature ServerDatabase
 
-What I really want to program!
 ![Feature Server ERD](dist/feature_server/erd.png)
 
 ### Application Database
