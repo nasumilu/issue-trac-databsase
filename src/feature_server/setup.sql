@@ -22,16 +22,13 @@ create extension if not exists postgis;
 
 --------------------- DROP TABLES ------------------------
 drop table if exists service cascade;
+drop table if exists datasource cascade;
 drop table if exists feature_class cascade;
 drop table if exists attribute cascade;
-drop table if exists us_state cascade;
-drop table if exists county cascade;
-drop table if exists place cascade;
-drop table if exists issue cascade;
 drop domain if exists email cascade;
 drop domain if exists postal_code cascade;
 drop type if exists feature_attribute_type cascade;
-drop type if exists driver;
+drop type if exists driver cascade;
 
 ----------------------------------------------------------
 
@@ -125,3 +122,9 @@ alter table if exists attribute
         foreign key (feature_class) references feature_class (id);
 
 ----------------------------------------------------------
+
+------------------- MAINTENANCE -------------------------
+
+vacuum full verbose;
+
+---------------------------------------------------------

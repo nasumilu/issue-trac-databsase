@@ -31,6 +31,17 @@ $ cd src
 $ ./setup.sh
 ```
 
+Or to build just one use the `setup.sh` found within the directory for each of the database(s).
+
+```shell
+$ cd tabluation_area
+$ ./setup.sh
+$ cd ../issue_trac
+$ ./setup.sh
+$ cd ../feature_server
+$ ./setup.sh
+```
+
 This may take awhile, the script needs to download each of the TIGER/Line&reg; Shapefiles and then import the shapefile
 into the database.
 

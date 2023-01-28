@@ -15,8 +15,11 @@
 #  See the License for the specific language governing permissions and
 #   limitations under the License.
 #
+cd tabluation_area || exit
+base setup.sh
 
-cd feature_server || exit
-bash setup.sh
 cd ../issue_trac || exit
+bash setup.sh
+
+cd ../feature_server || exit
 bash setup.sh
