@@ -48,19 +48,17 @@ create table if not exists service
 (
     id          bigserial primary key not null,
     name        character varying(64) not null,
-    address1    character varying(100),
-    address2    character varying(100),
-    city        character varying(64),
-    region      character varying(64),
-    postal_code postal_code,
-    email       email
+    title       character varying(64),
+    description text
 );
 
 create table if not exists datasource
 (
     id       bigserial primary key  not null,
+    name     character varying(64)  not null,
+    comment  text,
     dbname   character varying(64)  not null,
-    username     character varying(64)  not null,
+    username character varying(64)  not null,
     password character varying(255) not null, -- must encrypt password (no plain-text)
     host     character varying(128) not null,
     port     integer                not null,
@@ -96,6 +94,9 @@ create table if not exists attribute
 ----------------------------------------------------------
 
 --------------- CREATE INDEX & CONSTRAINTS ---------------
+
+create unique index if not exists datasource_unique_name_idx
+    on datasource(name);
 
 create unique index if not exists service_unique_name_idx
     on service (name);
