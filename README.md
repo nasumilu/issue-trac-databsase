@@ -13,6 +13,8 @@ feature server database(s).
 - [PostgreSQL Database >= v14](https://www.postgresql.org/) the primary persist storage used by the IssueTrac application
   and the feature server. 
 - [PostGIS >= v3.2](https://postgis.net/) a spatial database extender which adds geographic objects and spatial query
+- [MySQL](https://www.mysql.com/) a relational database which shall soon persist the data related to the actual IssueTrac
+application. Mostly this is added as a test case for the [spatial platform middleware project](https://github.com/nasumilu/spatial-platform).
 
 ## Usage
 
