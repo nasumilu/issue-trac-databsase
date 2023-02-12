@@ -51,6 +51,22 @@ $ composer update
 $ vendor/bin/issuetrac_db --help
 ```
 
+### NPM
+
+Add teh repository to the projects `package.json` file
+```json
+  "scripts": {
+    "issuetrac_db": "issuetrac_db postgresql setup"
+  },
+  "devDependencies": {
+    "issue_trac_db": "git+https://github.com/nasumilu/issue-trac-databsase.git#v1.0.0"
+  }
+```
+
+```shell
+$ npm issuetrac_db
+```
+
 ## Usage
 
 ### Postgresql
