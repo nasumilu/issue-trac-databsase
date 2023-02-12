@@ -2,9 +2,8 @@
   "name": "issuetrac_db",
   "version": "1.0.0",
   "description": "A simple bash script used to setup the IssueTrac database(s)",
-  "main": "index.js",
-  "scripts": {
-    "issuetrac_db": "src/issuetrac_db.sh"
+  "bin": {
+    "issuetrac_db": "./src/issuetrac_db"
   },
   "repository": {
     "type": "git",
