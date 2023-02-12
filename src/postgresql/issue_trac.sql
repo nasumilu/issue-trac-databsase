@@ -93,6 +93,6 @@ alter table if exists issue_media
 
 ------------------- MAINTENANCE -------------------------
 
-vacuum full verbose;
+vacuum full;
 
 ---------------------------------------------------------

@@ -1,0 +1,123 @@
+#!/usr/bin/env bash
+
+APP_NAME=$(basename "$0")
+VERSION=1.0.0
+HOST=localhost
+PORT=
+USER=
+PASSWORD=
+TIGER_YEAR=2022
+VERBOSE=0
+DATABASES=()
+PLATFORMS=( ./**/*.sh )
+PLATFORMS=( "${PLATFORMS[@]%/*}" )
+
+# Prints the usage help message
+usage() {
+  echo -e "\033[0;32mUsage\033[0m"
+  echo -e "  ${APP_NAME} \033[0;34m[PLATFORM]\033[0m \033[0;35m[COMMAND]\033[0m [OPTIONS ...]"
+}
+
+# Prints the options help message
+option_help() {
+  echo -e "\033[0;32mOptions\033[0m"
+  echo   "  -H, --host=name     Connect to host (default: localhost)"
+  echo   "  -p, --port=#        Port number to use for connection (default: to the specified platform default)"
+  echo   "  -u, --user=name     User for login"
+  echo   "  -P, --password=[password]"
+  echo   "                      Password to use when connecting to the server. Prompted if not provided"
+  echo   "  -t, --tiger-year=#  The Tiger/Line Shapefiles dataset year. (default: 2022)"
+  echo   "  -v, --verbose       Show more output and progress"
+  echo   "  -h, --help          This message"
+}
+
+# Prints the command help message
+command_help() {
+  echo -e "\033[0;32mCommands\033[0m"
+  echo -e "  \033[0;35msetup\033[0m                Setup the database(s)"
+  echo -e "  \033[0;35mlist\033[0m                 List the database(s) supported a \033[0;34m[PLATFORM]\033[0m"
+}
+
+# Prints the supported platforms message
+platform_help() {
+  echo -e "\033[0;32mPlatforms\033[0m"
+  for VALUE in "${PLATFORMS[@]}"; do
+    printf   "  \033[0;34m%-10s\033[0m           Using setup script %s.sh\n" "${VALUE:2}" "${VALUE}/${VALUE:2}"
+  done
+}
+
+# Prints the scripts help message
+help() {
+  echo -e "\033[0;32mName\033[0m ${APP_NAME}\n"
+  echo -e "\033[0;32mVersion\033[0m ${VERSION}\n"
+  echo -e "\033[0;32mDescription\033[0m"
+  echo -e "   A simple bash script used to setup the IssueTrac database(s). For more information go to the project
+   repository at https://github.com/nasumilu/issue-trac.\n"
+  usage; echo -e "\n"
+  platform_help; echo -e "\n"
+  command_help; echo -e "\n"
+  option_help; echo -e "\n"
+}
+
+# Gets the list of supported database for a PLATFORM and stores the results in DATABASES
+databases() {
+  DATABASES=( "./${PLATFORM}"/*.sql )
+  mapfile -t DATABASES < <(basename -s .sql "${DATABASES[@]}")
+}
+
+# List the database to stdout
+list() {
+  printf "\033[0;32mDatabase(s) for %s\033[0m\n" "${PLATFORM}"
+  for VALUE in "${DATABASES[@]}"; do
+   printf "  \033[0;35m%s\033[0m\n" "${VALUE}"
+  done
+}
+
+# Parse the options
+OPTIONS=$(getopt --options hsH:p:u:P:t: --long help,silent,host:,port:,user:,password:,tiger-year: -n "issuetrac_db" -- "$@")
+eval set -- "$OPTIONS"
+while true; do
+  case "$1" in
+    -h | --help ) help; exit 0;;
+    -H | --host ) HOST="$2"; shift 2;;
+    -p | --port ) PORT="$2"; shift 2;;
+    -u | --user ) USER="$2"; shift 2;;
+    -P | --password ) PASSWORD="$2"; shift 2;;
+    -t | --tiger-year ) TIGER_YEAR="$2"; shift 2;;
+    -s | --silent ) SILENT=1; shift;;
+    -- ) shift; break ;;
+    * ) echo "$OPTIONS"; exit 1 ;;
+  esac
+done
+
+# Check if platform is supported
+if [ ! -f "./${1}/${1}.sh" ]; then
+  [[ -n $2 ]] && value="$2" || value=null
+  echo -e "\033[0;31mPlatform $value is not supported!\033[0m"; platform_help; exit 1
+fi
+
+# Set the PLATFORM variable
+PLATFORM="$1"
+# Initialize the list of platform support databases
+databases
+
+# Handle the [COMMAND] argument
+case "$2" in
+  setup) ;;
+  list) list "${PLATFORM}"; exit 0;;
+  *) help; exit 1;;
+esac
+
+# If setting up one database check that the platform supports
+if [ -n "$3" ]; then
+  if ! [[ " ${DATABASES[*]} " =~  (^|[[:space:]])$3($|[[:space:]])  ]]; then
+    echo -e "\033[0;31mDatabase $3 is not supported for platform ${PLATFORM}!\033[0m";
+    list; exit 1
+  fi
+  DATABASES=("$3")
+fi
+
+if [[ "$SILENT" -eq 0 ]]; then echo "Setting up issuetrac database on $PLATFORM at $HOST"; fi
+cd "$PLATFORM" || exit;
+# shellcheck disable=SC1090
+source "${PLATFORM}.sh"

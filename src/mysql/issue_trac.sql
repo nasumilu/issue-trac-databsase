@@ -14,10 +14,14 @@
    limitations under the License.
  */
 
+# Select database
+USE issue_trac;
+
 # Drop Tables
-drop table if exists category;
 drop table if exists issue_comment cascade;
 drop table if exists issue_media cascade;
+drop table if exists issue cascade;
+drop table if exists category cascade;
 
 
 # CREATE TABLES

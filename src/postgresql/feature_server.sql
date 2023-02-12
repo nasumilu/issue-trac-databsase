@@ -55,12 +55,12 @@ create table if not exists service
 create table if not exists datasource
 (
     id       bigserial primary key  not null,
-    name     character varying(64)  not null,
+    name     varchar(64)  not null,
     comment  text,
-    dbname   character varying(64)  not null,
-    username character varying(64)  not null,
-    password character varying(255) not null, -- must encrypt password (no plain-text)
-    host     character varying(128) not null,
+    dbname   varchar(64)  not null,
+    username varchar(64)  not null,
+    password varchar(255) not null, -- must encrypt password (no plain-text)
+    host     varchar(128) not null,
     port     integer                not null,
     driver   driver                 not null
     -- need to add ssl configuration
@@ -71,10 +71,10 @@ create table if not exists feature_class
     id           bigserial primary key not null,
     service      bigint                not null,
     datasource   bigint                not null,
-    name         character varying(64) not null,
-    title        character varying(64) not null,
+    name         varchar(64) not null,
+    title        varchar(64) not null,
     description  text,
-    nspace       character varying(64) not null,
+    nspace       varchar(64) not null,
     srid         integer               not null,
     extent       box2d                 not null,
     is_published boolean default true
@@ -84,9 +84,9 @@ create table if not exists attribute
 (
     id            bigserial primary key  not null,
     feature_class bigint                 not null,
-    name          character varying(64)  not null,
+    name          varchar(64)  not null,
     type          feature_attribute_type not null,
-    label         character varying(64),
+    label         varchar(64),
     is_geometry   boolean default false,
     is_published  boolean default true
 );
@@ -127,6 +127,6 @@ alter table if exists attribute
 
 ------------------- MAINTENANCE -------------------------
 
-vacuum full verbose;
+vacuum full;
 
 ---------------------------------------------------------

@@ -1,5 +1,7 @@
 /.idea/
 /.env.local
-src/feature_server/.env.local
-src/issue_trac/.env.local
-src/tabulation_area/.env.local
+src/postgresql/feature_server/.env.local
+src/postgresql/issue_trac/.env.local
+src/postgresql/tabulation_area/.env.local
+
+/vendor/

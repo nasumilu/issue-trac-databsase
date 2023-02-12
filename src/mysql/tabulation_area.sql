@@ -14,16 +14,9 @@
    limitations under the License.
  */
 
----------------------- EXTENSION -------------------------
+use tabulation_area;
 
-create extension if not exists postgis;
-
-----------------------------------------------------------
-
---------------------- DROP TABLES ------------------------
-
+# DROP TABLES
 drop table if exists us_state cascade;
 drop table if exists county cascade;
 drop table if exists place cascade;
-
-----------------------------------------------------------

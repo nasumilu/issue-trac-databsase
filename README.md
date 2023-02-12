@@ -21,31 +21,36 @@ application. Mostly this is added as a test case for the [spatial platform middl
 ```shell
 $ git clone git@github.com:nasumilu/issue_trac-databsase.git
 $ cd issue_trac-database
-$ cp .env .env.local
 ```
 
-Set the correct arguments in the `.env.local` file. For more details on setting the variables prefixed with _PG_ see
-[PostgreSQL Documentation](https://www.postgresql.org/docs/current/libpq-envars.html). Once the connection variables
-are provided, run:
+### Postgresql
 
 ```shell
 $ cd src
-$ ./setup.sh
+$ ./issuetrac_db postgresql setup -H localhost -u postgres -P my_password
 ```
 
-Or to build just one use the `setup.sh` found within the directory for each of the database(s).
+### MySQL
 
 ```shell
-$ cd tabluation_area
-$ ./setup.sh
-$ cd ../issue_trac
-$ ./setup.sh
-$ cd ../feature_server
-$ ./setup.sh
+$ cd src
+$ ./issuetrac_db mysql setup -H localhost -u postgres -P my_password
 ```
 
 This may take awhile, the script needs to download each of the TIGER/Line&reg; Shapefiles and then import the shapefile
 into the database.
+
+### Setup an individual database
+
+First list the databases available for the target platform
+```shell
+$ ./issuetrac_db postgresql list
+Database(s) for postgresql
+  feature_server
+  issue_trac
+  tabulation_area
+$ ./issuetrac_db postgresql feature_server --user=postgres --password=my_password
+```
 
 ## Entity Relational Diagram (ERD)
 
@@ -62,5 +67,7 @@ into the database.
 - [TIGER/Line&reg; Shapefiles Documentation](https://www.census.gov/programs-surveys/geography/technical-documentation/complete-technical-documentation/tiger-geo-line.2022.html)
 - [PostgreSQL Database Documentation](https://www.postgresql.org/docs/)
 - [PostGIS Documentation](https://postgis.net/documentation/)
+- [MySQL](https://www.mysql.com/)
+- [issuetrac_db cli](dist/issuetrac_db.md)
 
 [Back to IssueTrac Project](https://github.com/nasumilu/issue-trac)

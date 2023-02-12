@@ -1,0 +1,13 @@
+{
+    "name": "nasumilu/issue-trac-database",
+    "description": "All things database for the IssueTrac application",
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "Michael Lucas",
+            "email": "nasumilu@gmail.com"
+        }
+    ],
+    "require": {},
+    "bin": ["src/issuetrac_db"]
+}
