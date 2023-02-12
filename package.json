@@ -1,0 +1,19 @@
+{
+  "name": "issuetrac_db",
+  "version": "1.0.0",
+  "description": "A simple bash script used to setup the IssueTrac database(s)",
+  "main": "index.js",
+  "scripts": {
+    "issuetrac_db": "src/issuetrac_db.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nasumilu/issue-trac-databsase.git"
+  },
+  "author": "Michael Lucas <nasumilu@gmail.com>",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/nasumilu/issue-trac-databsase/issues"
+  },
+  "homepage": "https://github.com/nasumilu/issue-trac-databsase#readme"
+}

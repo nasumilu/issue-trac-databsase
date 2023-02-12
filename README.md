@@ -16,12 +16,42 @@ feature server database(s).
 - [MySQL](https://www.mysql.com/) a relational database which shall soon persist the data related to the actual IssueTrac
 application. Mostly this is added as a test case for the [spatial platform middleware project](https://github.com/nasumilu/spatial-platform).
 
-## Usage
+## Install
+
+### Download
+```shell
+$ curl https://github.com/nasumilu/issue-trac-databsase/archive/refs/tags/v1.0.0.zip --output issue-trac-database.zip
+$ unzip issue-trac-database.zip -d issue_trac-database
+$ cd issue-trac-database
+```
+
+### Git
+```shell
+$ git clone https://github.com/nasumilu/issue-trac-databsase.git
+$ cd issue-trac-database
+```
+
+### Composer
+
+Add the repository to the projects `composer.json` file:
+```json
+"repositories": [
+  {
+    "type": "vcs",
+    "url": "https://github.com/nasumilu/issue-trac-databsase.git"
+  }
+],
+  "require-dev": {
+    "nasumilu/issue-trac-database": "v1.0.0" 
+}
+```
 
 ```shell
-$ git clone git@github.com:nasumilu/issue_trac-databsase.git
-$ cd issue_trac-database
+$ composer update
+$ vendor/bin/issuetrac_db --help
 ```
+
+## Usage
 
 ### Postgresql
 
