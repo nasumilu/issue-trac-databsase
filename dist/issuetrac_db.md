@@ -4,7 +4,7 @@
 $ ./issuetrac_db --help
 Name issuetrac_db
 
-Version 1.0.0
+Version 1.0.1
 
 Description
    A simple bash script used to setup the IssueTrac database(s). For more information go to the project

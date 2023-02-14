@@ -3,7 +3,7 @@
 cd "$(dirname "$(realpath "$0")")" ||  exit
 
 APP_NAME=$(basename "$0")
-VERSION=1.0.0
+VERSION=1.0.1
 HOST=localhost
 PORT=
 USER=
