@@ -56,7 +56,7 @@ $ vendor/bin/issuetrac_db --help
 Add teh repository to the projects `package.json` file
 ```json
   "scripts": {
-    "issuetrac_db": "issuetrac_db postgresql setup -U postgres"
+    "issuetrac_db": "issuetrac_db"
   },
   "devDependencies": {
     "issue_trac_db": "git+https://github.com/nasumilu/issue-trac-databsase.git#v1.0.0"
