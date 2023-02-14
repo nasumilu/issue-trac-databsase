@@ -12,6 +12,7 @@ Description
 
 Usage
   issuetrac_db [PLATFORM] [COMMAND] [OPTIONS ...]
+  issuetrac_db [PLATFORM] setup [DATABASE] [OPTIONS ...]
 
 
 Platforms
