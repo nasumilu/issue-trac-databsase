@@ -56,7 +56,7 @@ $ vendor/bin/issuetrac_db --help
 Add teh repository to the projects `package.json` file
 ```json
   "scripts": {
-    "issuetrac_db": "issuetrac_db postgresql setup"
+    "issuetrac_db": "issuetrac_db postgresql setup -U postgres"
   },
   "devDependencies": {
     "issue_trac_db": "git+https://github.com/nasumilu/issue-trac-databsase.git#v1.0.0"
@@ -64,7 +64,7 @@ Add teh repository to the projects `package.json` file
 ```
 
 ```shell
-$ npm issuetrac_db
+$ npm run issuetrac_db postgresql setup
 ```
 
 ## Usage
