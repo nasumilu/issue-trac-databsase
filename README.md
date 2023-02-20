@@ -102,7 +102,12 @@ $ ./issuetrac_db postgresql feature_server --user=postgres --password=my_passwor
 
 ### Feature ServerDatabase
 
+#### Enhanced Entity Relationship Diagram (EERD)
+
 ![Feature Server ERD](dist/feature_server/erd.png)
+
+#### Chen Style ERD
+![Chen Feature Server ERD](dist/feature_server/erd.chen.png)
 
 ### Application Database
 
