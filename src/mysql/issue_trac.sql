@@ -40,14 +40,17 @@ create table if not exists issue
     title       varchar(64)        not null,
     description text,
     category    bigint             not null,
-    shape       Point              not null srid 4269
+    shape       Point              not null srid 4269,
+    geoid       varchar(16)        not null,
+    sub         varchar(36)        not null
 );
 
 create table if not exists issue_comment
 (
     id      bigint primary key not null auto_increment,
     issue   bigint             not null,
-    comment text               not null
+    comment text               not null,
+    sub     varchar(36)        not null
 );
 
 create table if not exists issue_media
@@ -55,13 +58,23 @@ create table if not exists issue_media
     id        bigint primary key                             not null auto_increment,
     issue     bigint                                         not null,
     mime_type enum ('image/jpeg', 'image/png', 'image/webp') not null,
-    image     longblob                                       not null
+    image     longblob                                       not null,
+    sub       varchar(36)                                    not null
 );
 
 # CREATE INDEX & CONSTRAINTS
 
 create index category_geoid_idx
     on category (geoid);
+
+create index issue_sub_idx
+    on issue (sub);
+
+create index issue_comment_sub_idx
+    on issue_comment (sub);
+
+create index issue_media_sub_idx
+    on issue_media (sub);
 
 create spatial index category_shape_spx on issue (shape);
 

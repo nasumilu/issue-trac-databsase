@@ -22,7 +22,8 @@ create extension if not exists postgis;
 
 --------------------- DROP TABLES ------------------------
 
-drop table if exists category;
+drop table if exists category cascade;
+drop table if exists issue cascade;
 drop table if exists issue_comment cascade;
 drop table if exists issue_media cascade;
 drop type if exists mime_type cascade;
@@ -30,7 +31,7 @@ drop type if exists mime_type cascade;
 
 ----------------- TYPES & DOMAINS ------------------------
 
-create type mime_type as enum ('image/jpeg', 'image/png', 'image/webp');
+create type mime_type as enum ('IMAGE_JPEG', 'IMAGE_PNG', 'IMAGE_WEBP');
 
 ----------------------------------------------------------
 
@@ -50,14 +51,17 @@ create table if not exists issue
     title       character varying(64) not null,
     description text,
     category    bigint                not null,
-    shape       geometry(Point, 4269) not null
+    shape       geometry(Point, 4269) not null,
+    geoid       character varying(16) not null,
+    sub         uuid                  not null
 );
 
 create table if not exists issue_comment
 (
     id      bigserial primary key not null,
     issue   bigint                not null,
-    comment text                  not null
+    comment text                  not null,
+    sub     uuid                  not null
 );
 
 create table if not exists issue_media
@@ -65,7 +69,8 @@ create table if not exists issue_media
     id        bigserial primary key not null,
     issue     bigint                not null,
     mime_type mime_type             not null,
-    image     bytea                 not null
+    image     bytea                 not null,
+    sub       uuid                  not null
 );
 
 ----------------------------------------------------------
@@ -74,6 +79,15 @@ create table if not exists issue_media
 
 create index if not exists category_geoid_idx
     on category (geoid);
+
+create index if not exists issue_sub_idx
+    on issue (sub);
+
+create index if not exists issue_comment_sub_idx
+    on issue_comment (sub);
+
+create index if not exists issue_media_sub_idx
+    on issue_media (sub);
 
 alter table if exists category
     add constraint category_parent_fkey
