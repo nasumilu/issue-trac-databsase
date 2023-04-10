@@ -26,14 +26,8 @@ drop table if exists category cascade;
 drop table if exists issue cascade;
 drop table if exists issue_comment cascade;
 drop table if exists issue_media cascade;
-drop type if exists mime_type cascade;
 ----------------------------------------------------------
 
------------------ TYPES & DOMAINS ------------------------
-
-create type mime_type as enum ('IMAGE_JPEG', 'IMAGE_PNG', 'IMAGE_WEBP');
-
-----------------------------------------------------------
 
 ------------------------ CREATE TABLES -------------------
 create table if not exists category
@@ -53,7 +47,8 @@ create table if not exists issue
     category    bigint                not null,
     shape       geometry(Point, 4269) not null,
     geoid       character varying(16) not null,
-    sub         uuid                  not null
+    sub         uuid                  not null,
+    disposition character varying(16) default 'NEW' not null
 );
 
 create table if not exists issue_comment
@@ -66,11 +61,11 @@ create table if not exists issue_comment
 
 create table if not exists issue_media
 (
-    id        bigserial primary key not null,
-    issue     bigint                not null,
-    mime_type mime_type             not null,
-    image     bytea                 not null,
-    sub       uuid                  not null
+    id        bigserial primary key  not null,
+    issue     bigint                 not null,
+    mime_type character varying (16) not null,
+    image     bytea                  not null,
+    sub       uuid                   not null
 );
 
 ----------------------------------------------------------
@@ -82,6 +77,9 @@ create index if not exists category_geoid_idx
 
 create index if not exists issue_sub_idx
     on issue (sub);
+
+create index if not exists issue_disposition_idx
+    on issue (disposition);
 
 create index if not exists issue_comment_sub_idx
     on issue_comment (sub);
