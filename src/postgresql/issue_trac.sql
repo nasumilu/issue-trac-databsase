@@ -41,13 +41,13 @@ create table if not exists category
 
 create table if not exists issue
 (
-    id          bigserial primary key not null,
-    title       character varying(64) not null,
+    id          bigserial primary key               not null,
+    title       character varying(64)               not null,
     description text,
-    category    bigint                not null,
-    shape       geometry(Point, 4269) not null,
-    geoid       character varying(16) not null,
-    sub         uuid                  not null,
+    category    bigint                              not null,
+    shape       geometry(Point, 4269)               not null,
+    geoid       character varying(16)               not null,
+    sub         uuid                                not null,
     disposition character varying(16) default 'NEW' not null
 );
 
@@ -61,11 +61,19 @@ create table if not exists issue_comment
 
 create table if not exists issue_media
 (
-    id        bigserial primary key  not null,
-    issue     bigint                 not null,
-    mime_type character varying (16) not null,
-    image     bytea                  not null,
-    sub       uuid                   not null
+    id        bigserial primary key not null,
+    issue     bigint                not null,
+    mime_type character varying(16) not null,
+    image     bytea                 not null,
+    sub       uuid                  not null
+);
+
+create table if not exists issue_disposition_history
+(
+    id          bigserial primary key       not null,
+    issue       bigint                      not null,
+    disposition varchar(16)                 not null,
+    change_at   timestamp without time zone not null default now()
 );
 
 ----------------------------------------------------------
@@ -80,6 +88,9 @@ create index if not exists issue_sub_idx
 
 create index if not exists issue_disposition_idx
     on issue (disposition);
+
+create index if not exists issue_disposition_history_issue_idx
+    on issue_disposition_history (issue);
 
 create index if not exists issue_comment_sub_idx
     on issue_comment (sub);
