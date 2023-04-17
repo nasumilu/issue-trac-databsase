@@ -22,7 +22,7 @@ drop table if exists issue_comment cascade;
 drop table if exists issue_media cascade;
 drop table if exists issue cascade;
 drop table if exists category cascade;
-
+drop table if exists issue_disposition_history cascade;
 
 # CREATE TABLES
 create table if not exists category
@@ -65,11 +65,26 @@ create table if not exists issue_media
 
 create table issue_disposition_history
 (
-    id    bigint primary key not null auto_increment,
-    issue bigint             not null,
-    disposition varchar(16) not null,
-    change_at   timestamp   not null default current_timestamp
+    id          bigint primary key not null auto_increment,
+    issue       bigint             not null,
+    disposition varchar(16)        not null,
+    sub         varchar(36)        not null,
+    change_at   timestamp          not null default current_timestamp
 );
+
+
+# CREATE TRIGGER
+create trigger on_issue_disposition_update
+    after update on issue
+    for each row
+    insert into issue_disposition_history (issue, disposition, sub, change_at)
+    values (NEW.id, NEW.disposition, NEW.sub, CURRENT_TIMESTAMP);
+
+create trigger on_issue_disposition_insert
+    after insert on issue
+    for each row
+    insert into issue_disposition_history (issue, disposition, sub, change_at)
+    values (NEW.id, NEW.disposition, NEW.sub, CURRENT_TIMESTAMP);
 
 # CREATE INDEX & CONSTRAINTS
 
@@ -90,6 +105,9 @@ create index issue_media_sub_idx
 
 create index issue_disposition_history_issue_idx
     on issue_disposition_history (issue);
+
+create index issue_disposition_history_sub_idx
+    on issue_disposition_history (sub);
 
 create spatial index category_shape_spx on issue (shape);
 
