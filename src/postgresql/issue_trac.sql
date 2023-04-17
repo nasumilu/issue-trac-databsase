@@ -137,6 +137,10 @@ alter table if exists issue
     add constraint issue_category_fkey
         foreign key (category) references category (id);
 
+alter table if exists issue_disposition_history
+    add constraint issue_disposition_history_issue_fkey
+        foreign key (issue) references issue (id);
+
 alter table if exists issue_comment
     add constraint issue_comment_issue_fkey
         foreign key (issue) references issue (id);

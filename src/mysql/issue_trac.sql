@@ -119,6 +119,10 @@ alter table issue
     add constraint issue_category_fkey
         foreign key (category) references category (id);
 
+alter table issue_disposition_history
+    add constraint issue_disposition_history_issue_fkey
+        foreign key (issue) references issue (id);
+
 alter table issue_comment
     add constraint issue_comment_issue_fkey
         foreign key (issue) references issue (id);
