@@ -68,6 +68,10 @@ create table if not exists issue_media
     sub       uuid                   not null
 );
 
+create or replace function find_issues_within_extent(float, float, float, float, int) returns setof issue as $$
+    select * from issue where shape && st_transform(st_makeenvelope($1, $2, $3, $4, $5), 4269)
+$$ language  sql;
+
 ----------------------------------------------------------
 
 --------------- CREATE INDEX & CONSTRAINTS ---------------
