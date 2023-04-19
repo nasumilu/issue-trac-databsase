@@ -42,13 +42,13 @@ create table if not exists category
 
 create table if not exists issue
 (
-    id          bigserial primary key               not null,
-    title       character varying(64)               not null,
+    id          bigserial primary key not null,
+    title       character varying(64) not null,
     description text,
-    category    bigint                              not null,
-    shape       geometry(Point, 4269)               not null,
-    geoid       character varying(16)               not null,
-    sub         uuid                                not null,
+    category    bigint                not null,
+    shape       geometry(Point, 4269) not null,
+    geoid       character varying(16) not null,
+    sub         uuid                  not null,
     disposition character varying(16) default 'NEW' not null
 );
 
@@ -62,12 +62,16 @@ create table if not exists issue_comment
 
 create table if not exists issue_media
 (
-    id        bigserial primary key not null,
-    issue     bigint                not null,
-    mime_type character varying(16) not null,
-    image     bytea                 not null,
-    sub       uuid                  not null
+    id        bigserial primary key  not null,
+    issue     bigint                 not null,
+    mime_type character varying (16) not null,
+    image     bytea                  not null,
+    sub       uuid                   not null
 );
+
+create or replace function find_issues_within_extent(float, float, float, float, int) returns setof issue as $$
+    select * from issue where shape && st_transform(st_makeenvelope($1, $2, $3, $4, $5), 4269)
+$$ language  sql;
 
 create table if not exists issue_disposition_history
 (
